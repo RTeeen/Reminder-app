@@ -11,11 +11,13 @@ const menu:string = `
 |  [6] Exit 👋                
 ------------------------------
 `;
-
+interface key{
+    tag:string,
+    reminder:string
+}
 export default class Reminder {
-    private _reminders: object = {
-        
-    }
+
+    private _reminders: any =[];
     addReminders() {
         do {
             let rem = question('Enter a reminder here ');
@@ -25,8 +27,13 @@ export default class Reminder {
                     let r = question('Enter a tag here: ');
                     let noy = question(`You entered tag: '${r}', is it correct? y/n: `)
                     if (noy == "y") {
-                    this._reminders = { rem: [r] }
-                    console.log("Reminder added")
+                    let data:key={
+                        tag : r,
+                        reminder : rem
+                    }
+                    this._reminders.push(data);
+                    console.log("Reminder added");
+                    //console.log(this._reminders);
                     break;
                     }else if (noy == "n") {
                         console.log("please enter another tag")
