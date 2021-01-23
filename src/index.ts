@@ -33,11 +33,17 @@ class Reminder {
         }while(true);
     }
 
+    wordCheck(search:string):boolean {
+        if(this.task.search(search)!==-1 || this.tag.search(search)!==-1){
+            return true;
+        }else return false;
+    } 
 }
 
 question('Press [Enter] key to display the menu:');
 
 let reminders = [];
+let searchResult:any =[];
 
 do {
     
@@ -48,14 +54,24 @@ do {
         if (num == 1) {
             //reminder.showAllReminders();
         } else if (num == 2) {
+            let keyWord = question("What are you searching for?");
+            reminders.forEach((reminder)=>{
+                let i = reminder.wordCheck(keyWord);
+                if(i) searchResult.push(reminder);
+            });
+            console.log(searchResult);
+            searchResult =[];
 
         } else if (num == 3) {
             let data = new Reminder();
-            reminders.push(data.setReminder());
-    
+            data.setReminder();
+            reminders.push(data);
+            console.log(reminders);
         } else if (num == 4) {
 
         } else if (num == 5) {
+
+            
 
         } else if (num == 6) {
             console.log("See you later!");
