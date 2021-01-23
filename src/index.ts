@@ -11,15 +11,13 @@ const menu:string = `
 |  [6] Exit 👋                
 ------------------------------
 `;
+interface key{
+    tag:string,
+    reminder:string
+}
+export default class Reminder {
 
-
-
-class Reminder {
-    private keys = {
-    tag: '',
-    reminder: ['']  
-    } 
-    private _reminders: any = [];
+    private _reminders: any =[];
     addReminders() {
         do {
             let rem = question('Enter a reminder here ');
@@ -29,8 +27,15 @@ class Reminder {
                     let r = question('Enter a tag here: ');
                     let noy = question(`You entered tag: '${r}', is it correct? y/n: `)
                     if (noy == "y") {
-                    this._reminders.push( { rem: r } )
-                    console.log("Reminder added")
+
+                    let data:key={
+                        tag : r,
+                        reminder : rem
+                    }
+                    this._reminders.push(data);
+                    console.log("Reminder added");
+                    //console.log(this._reminders);
+
                     break;
                     }else if (noy == "n") {
                         console.log("please enter another tag")
@@ -76,9 +81,9 @@ do {
     
     console.log(menu);
     let menuItem:string = question('Choose a [Number] followed by [Enter]: ');
-    let num = parseInt(menuItem)
+    let num = parseFloat(menuItem);
+    if(num <= 6 && num >= 1 && !!(num % 1) == false ){
 
-    if(num <= 6 && num >= 1){
         if (num == 1) {
             reminder.showAllReminders();
         } else if (num == 2) {
@@ -90,18 +95,12 @@ do {
         } else if (num == 5) {
 
         } else if (num == 6) {
-
+            console.log("See you later!");
+            break;
         }
-    }else{
+        }else{
         console.log("The input is invalid! please choose one of the options [1-6] and press [Enter]");
-    }
+        }
 
 }while(1);
 
-/*
-do {
-    let menu = question('Press [Enter] key to display the menu: ');
-    console.log(menu);
-}while(1)
-
-*/
