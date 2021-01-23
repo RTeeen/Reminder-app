@@ -13,6 +13,7 @@ const menu:string = `
 `;
 interface key{
     tag:string,
+    emoji?: string,
     reminder:string
 }
 export default class Reminder {
@@ -56,17 +57,37 @@ export default class Reminder {
     }
 
     showAllReminders(): void {
-        if (JSON.stringify(this._reminders) == "{}") {
+        console.log()
+        if (this._reminders[0] == undefined) {
             console.log("You have no reminders")
         } else {
-            let objectToString = JSON.stringify(this._reminders)
-            objectToString.slice()
             console.log(``)
         }
        
     }
 
-    readMenu() {
+    searchReminders() {
+        do {
+            let search = question(`Enter a keyword here: `)
+            let noOrYes = question(`You entered keyword: '${search}', is it correct? y/n: `)
+            if (noOrYes == 'y') {
+                let sepArr = this._reminders.filter((obj: key) => ((obj.tag.search(search) !== -1) || obj.reminder.search(search)) !== -1)
+                
+                if ( sepArr[0].tag.search(search) !== -1 ) {
+                        console.log(`<Emoji Here> ${sepArr[0].obj.tag}`)
+                        sepArr.forEach((obj: key) => {
+                                console.log(`${obj.reminder}\n`)
+                        });
+                    }
+                
+            }else if(noOrYes == "n") {
+                console.log("please try typing a keyword again")
+            }
+            else if (noOrYes !== "n" && noOrYes !== 'y') {
+                console.log("please type y or n");
+            }
+        }while(1)
+        
 
     }
 
