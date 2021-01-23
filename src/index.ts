@@ -12,7 +12,7 @@ const menu:string = `
 ------------------------------
 `;
 
-class Reminder {
+export default class Reminder {
     private _reminders: object = {
         
     }
@@ -68,8 +68,8 @@ do {
     
     console.log(menu);
     let menuItem:string = question('Choose a [Number] followed by [Enter]: ');
-    let num = parseInt(menuItem)
-    if(num <= 6 && num >= 1){
+    let num = parseFloat(menuItem);
+    if(num <= 6 && num >= 1 && !!(num % 1) == false ){
         if (num == 1) {
             reminder.showAllReminders();
         } else if (num == 2) {
@@ -81,18 +81,12 @@ do {
         } else if (num == 5) {
 
         } else if (num == 6) {
-
+            console.log("See you later!");
+            break;
         }
-    }else{
+        }else{
         console.log("The input is invalid! please choose one of the options [1-6] and press [Enter]");
-    }
+        }
 
 }while(1);
 
-/*
-do {
-    let menu = question('Press [Enter] key to display the menu: ');
-    console.log(menu);
-}while(1)
-
-*/
