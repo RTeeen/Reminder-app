@@ -25,7 +25,7 @@ class Reminder {
                     let r = question('Enter a tag here: ');
                     let noy = question(`You entered tag: '${r}', is it correct? y/n: `)
                     if (noy == "y") {
-                    this._reminders = { rem: [r] }
+                    this._reminders = { rem: r }
                     console.log("Reminder added")
                     break;
                     }else if (noy == "n") {
@@ -68,6 +68,7 @@ do {
     
     console.log(menu);
     let menuItem:string = question('Choose a [Number] followed by [Enter]: ');
+    
     let num = parseInt(menuItem)
     if(num <= 6 && num >= 1){
         if (num == 1) {
