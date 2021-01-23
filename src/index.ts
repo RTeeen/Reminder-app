@@ -27,6 +27,7 @@ export default class Reminder {
                     let r = question('Enter a tag here: ');
                     let noy = question(`You entered tag: '${r}', is it correct? y/n: `)
                     if (noy == "y") {
+
                     let data:key={
                         tag : r,
                         reminder : rem
@@ -34,9 +35,12 @@ export default class Reminder {
                     this._reminders.push(data);
                     console.log("Reminder added");
                     //console.log(this._reminders);
+
                     break;
                     }else if (noy == "n") {
                         console.log("please enter another tag")
+                    }else if (noy !== "n" && noy !== 'y') {
+                        console.log("please type y or n");
                     }
                 }while(1)
                 break;
@@ -55,7 +59,9 @@ export default class Reminder {
         if (JSON.stringify(this._reminders) == "{}") {
             console.log("You have no reminders")
         } else {
-            console.log(`${this._reminders}`)
+            let objectToString = JSON.stringify(this._reminders)
+            objectToString.slice()
+            console.log(``)
         }
        
     }
@@ -77,6 +83,7 @@ do {
     let menuItem:string = question('Choose a [Number] followed by [Enter]: ');
     let num = parseFloat(menuItem);
     if(num <= 6 && num >= 1 && !!(num % 1) == false ){
+
         if (num == 1) {
             reminder.showAllReminders();
         } else if (num == 2) {
