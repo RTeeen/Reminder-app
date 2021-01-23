@@ -35,9 +35,8 @@ question('Press [Enter] key to display the menu:');
 do {
 
     console.log(menu);
-    let menuItem:number = parseInt(question('Choose a [Number] followed by [Enter]: '));
-    
-    if(menuItem <= 6 && menuItem >= 1 && !!(menuItem % 1)){
+    let menuItem:number = parseFloat(question('Choose a [Number] followed by [Enter]: '));
+    if(menuItem <= 6 && menuItem >= 1 && !!(menuItem % 1) == false){
         console.log("Artin");
     }else{
         console.log("The input is invalid! please choose one of the options [1-6] and press [Enter]");
