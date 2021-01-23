@@ -12,10 +12,14 @@ const menu:string = `
 ------------------------------
 `;
 
+
+
 class Reminder {
-    private _reminders: object = {
-        
-    }
+    private keys = {
+    tag: '',
+    reminder: ['']  
+    } 
+    private _reminders: any = [];
     addReminders() {
         do {
             let rem = question('Enter a reminder here ');
@@ -25,11 +29,13 @@ class Reminder {
                     let r = question('Enter a tag here: ');
                     let noy = question(`You entered tag: '${r}', is it correct? y/n: `)
                     if (noy == "y") {
-                    this._reminders = { rem: r }
+                    this._reminders.push( { rem: r } )
                     console.log("Reminder added")
                     break;
                     }else if (noy == "n") {
                         console.log("please enter another tag")
+                    }else if (noy !== "n" && noy !== 'y') {
+                        console.log("please type y or n");
                     }
                 }while(1)
                 break;
@@ -48,7 +54,9 @@ class Reminder {
         if (JSON.stringify(this._reminders) == "{}") {
             console.log("You have no reminders")
         } else {
-            console.log(`${this._reminders}`)
+            let objectToString = JSON.stringify(this._reminders)
+            objectToString.slice()
+            console.log(``)
         }
        
     }
@@ -68,8 +76,8 @@ do {
     
     console.log(menu);
     let menuItem:string = question('Choose a [Number] followed by [Enter]: ');
-    
     let num = parseInt(menuItem)
+
     if(num <= 6 && num >= 1){
         if (num == 1) {
             reminder.showAllReminders();
