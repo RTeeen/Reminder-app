@@ -14,12 +14,44 @@ const menu:string = `
 
 class Reminder {
     private _reminders: object = {
-        groceries: [""],
-        coding: ['']
+        
+    }
+    addReminders() {
+        do {
+            let rem = question('Enter a reminder here ');
+            let noOrYes = question(`You entered reminder: '${rem}', is it correct? y/n: `)
+            if (noOrYes == 'y') {
+                do {
+                    let r = question('Enter a tag here: ');
+                    let noy = question(`You entered tag: '${r}', is it correct? y/n: `)
+                    if (noy == "y") {
+                    this._reminders = { rem: [r] }
+                    console.log("Reminder added")
+                    break;
+                    }else if (noy == "n") {
+                        console.log("please enter another tag")
+                    }
+                }while(1)
+                break;
+            }
+            else if(noOrYes == "n") {
+                console.log("please try typing it again")
+            }
+            else if (noOrYes !== "n" && noOrYes !== 'y') {
+                console.log("please type y or n");
+            }
+            
+        }while(1)
     }
 
-
-
+    showAllReminders(): void {
+        if (JSON.stringify(this._reminders) == "{}") {
+            console.log("You have no reminders")
+        } else {
+            console.log(`${this._reminders}`)
+        }
+       
+    }
 
     readMenu() {
 
@@ -29,16 +61,28 @@ class Reminder {
 
 }
 
-
+let reminder = new Reminder()
 question('Press [Enter] key to display the menu:');
 
 do {
-
-    console.log(menu);
-    let menuItem:number = parseInt(question('Choose a [Number] followed by [Enter]: '));
     
-    if(menuItem <= 6 && menuItem >= 1 && !!(menuItem % 1)){
-        console.log("Artin");
+    console.log(menu);
+    let menuItem:string = question('Choose a [Number] followed by [Enter]: ');
+    let num = parseInt(menuItem)
+    if(num <= 6 && num >= 1){
+        if (num == 1) {
+            reminder.showAllReminders();
+        } else if (num == 2) {
+
+        } else if (num == 3) {
+            reminder.addReminders();
+        } else if (num == 4) {
+
+        } else if (num == 5) {
+
+        } else if (num == 6) {
+
+        }
     }else{
         console.log("The input is invalid! please choose one of the options [1-6] and press [Enter]");
     }
