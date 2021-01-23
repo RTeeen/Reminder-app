@@ -1,2 +1,2 @@
 # Reminder-app
-Main repo for Reminder app for COMP2523
+Team Members : Ryan, Steve, Artin
