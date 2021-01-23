@@ -16,8 +16,8 @@ const menu:string =
 
 class Reminder {
     private _reminders: object = {
-        groceries: [""],
-        coding: ['']
+        groceries: [],
+        coding: []
     }
 
 
@@ -31,7 +31,17 @@ class Reminder {
 
 }
 
+question('Press [Enter] key to display the menu:');
+
 do {
-    let showMenu = question('Press [Enter] key to display the menu: ');
+
     console.log(menu);
-}while(1)
+    let menuItem:number = parseInt(question('Choose a [Number] followed by [Enter]: '));
+    
+    if(menuItem <= 6 && menuItem >= 1 && !!(menuItem % 1)){
+        console.log("Artin");
+    }else{
+        console.log("The input is invalid! please choose one of the options [1-6] and press [Enter]");
+    }
+
+}while(1);
