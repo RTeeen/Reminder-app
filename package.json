@@ -1,0 +1,19 @@
+{
+  "name": "reminder-app",
+  "version": "1.0.0",
+  "description": "THIS IS A BCIT LAB ASSIGNMENT",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RTeeen/Reminder-app.git"
+  },
+  "author": "Artin, Ryan, Steve",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RTeeen/Reminder-app/issues"
+  },
+  "homepage": "https://github.com/RTeeen/Reminder-app#readme"
+}
