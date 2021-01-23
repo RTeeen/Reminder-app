@@ -1,5 +1,5 @@
 import { question } from "readline-sync";
-const menu = `
+const menu:string = `
 ------------------------------
 |      Reminders menu:       |
 ------------------------------
@@ -11,7 +11,6 @@ const menu = `
 |  [6] Exit 👋                
 ------------------------------
 `;
-
 
 class Reminder {
     private _reminders: object = {
@@ -30,7 +29,26 @@ class Reminder {
 
 }
 
+
+question('Press [Enter] key to display the menu:');
+
+do {
+
+    console.log(menu);
+    let menuItem:number = parseInt(question('Choose a [Number] followed by [Enter]: '));
+    
+    if(menuItem <= 6 && menuItem >= 1 && !!(menuItem % 1)){
+        console.log("Artin");
+    }else{
+        console.log("The input is invalid! please choose one of the options [1-6] and press [Enter]");
+    }
+
+}while(1);
+
+/*
 do {
     let menu = question('Press [Enter] key to display the menu: ');
     console.log(menu);
 }while(1)
+
+*/
