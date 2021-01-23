@@ -1,7 +1,6 @@
 import { question } from "readline-sync";
-
-const menu:string = 
-`------------------------------
+const menu:string = `
+------------------------------
 |      Reminders menu:       |
 ------------------------------
 |  [1] Show all reminders 👀  
@@ -11,13 +10,12 @@ const menu:string =
 |  [5] Toggle completion ⭕️ 🔴  
 |  [6] Exit 👋                
 ------------------------------
-`
-;
+`;
 
 class Reminder {
     private _reminders: object = {
-        groceries: [],
-        coding: []
+        groceries: [""],
+        coding: ['']
     }
 
 
@@ -30,6 +28,7 @@ class Reminder {
 
 
 }
+
 
 question('Press [Enter] key to display the menu:');
 
@@ -45,3 +44,11 @@ do {
     }
 
 }while(1);
+
+/*
+do {
+    let menu = question('Press [Enter] key to display the menu: ');
+    console.log(menu);
+}while(1)
+
+*/
