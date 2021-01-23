@@ -4,6 +4,7 @@
   "description": "THIS IS A BCIT LAB ASSIGNMENT",
   "main": "index.js",
   "scripts": {
+    "start": "ts-node-dev --respawn ./src/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -20,5 +21,8 @@
     "readline-sync": "^1.4.10",
     "ts-node-dev": "^1.1.1",
     "typescript": "^4.1.3"
+  },
+  "devDependencies": {
+    "@types/readline-sync": "^1.4.3"
   }
 }
