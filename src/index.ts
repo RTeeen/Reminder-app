@@ -1,4 +1,7 @@
 import { question } from "readline-sync";
+
+let reminders:Array<Reminder> = [];
+let searchResult:any =[];
 const menu:string = `
 ------------------------------
 |      Reminders menu:       |
@@ -11,92 +14,87 @@ const menu:string = `
 |  [6] Exit 👋                
 ------------------------------
 `;
-interface key{
-    tag:string,
-    emoji?: string,
-    reminder:string
-}
-export default class Reminder {
 
-    private _reminders: any =[];
-    addReminders() {
-        do {
-            let rem = question('Enter a reminder here ');
-            let noOrYes = question(`You entered reminder: '${rem}', is it correct? y/n: `)
-            if (noOrYes == 'y') {
-                do {
-                    let r = question('Enter a tag here: ');
-                    let noy = question(`You entered tag: '${r}', is it correct? y/n: `)
-                    if (noy == "y") {
+const getTags = (reminders: Array<Reminder>) : string[] => {
 
-                    let data:key={
-                        tag : r,
-                        reminder : rem
-                    }
-                    this._reminders.push(data);
-                    console.log("Reminder added");
-                    //console.log(this._reminders);
+    let cache: {[key: string]:boolean} = {};
+    let tagList: string[] = [];
 
-                    break;
-                    }else if (noy == "n") {
-                        console.log("please enter another tag")
-                    }else if (noy !== "n" && noy !== 'y') {
-                        console.log("please type y or n");
-                    }
-                }while(1)
-                break;
-            }
-            else if(noOrYes == "n") {
-                console.log("please try typing it again")
-            }
-            else if (noOrYes !== "n" && noOrYes !== 'y') {
-                console.log("please type y or n");
-            }
-            
-        }while(1)
-    }
-
-    showAllReminders(): void {
-        console.log()
-        if (this._reminders[0] == undefined) {
-            console.log("You have no reminders")
-        } else {
-            console.log(``)
-        }
+    for (let i= 0; i < reminders.length; i++) {
        
+        let element:Reminder = reminders[i];
+        if(!cache[element.tag]){
+            cache[element.tag] = true;
+            tagList.push(element.tag);
+        }
     }
+    return tagList;
+};
 
-    searchReminders() {
-        do {
-            let search = question(`Enter a keyword here: `)
-            let noOrYes = question(`You entered keyword: '${search}', is it correct? y/n: `)
-            if (noOrYes == 'y') {
-                let sepArr = this._reminders.filter((obj: key) => ((obj.tag.search(search) !== -1) || obj.reminder.search(search)) !== -1)
-                
-                if ( sepArr[0].tag.search(search) !== -1 ) {
-                        console.log(`<Emoji Here> ${sepArr[0].obj.tag}`)
-                        sepArr.forEach((obj: key) => {
-                                console.log(`${obj.reminder}\n`)
-                        });
-                    }
-                
-            }else if(noOrYes == "n") {
-                console.log("please try typing a keyword again")
+const showAll = (reminders: Array<Reminder>): void =>{
+
+    let tagList:string[] = getTags(reminders);
+
+    tagList.forEach((tag:string)=>{
+        console.log(`[${tag}]`);
+        for (let i = 0; i < reminders.length; i++) {
+            if(tag == reminders[i].tag){
+                reminders[i].listPrimaryKey = (i+1);
+                console.log(`---${reminders[i].listPrimaryKey}.${reminders[i].task}`);
             }
-            else if (noOrYes !== "n" && noOrYes !== 'y') {
-                console.log("please type y or n");
-            }
-        }while(1)
-        
-
-    }
-
-
+        }
+    });
 
 }
 
-let reminder = new Reminder()
+const modifyReminders = (reminders:Array<Reminder>) => {
+
+    showAll(reminders);
+    let menuItem = parseFloat(question('Enter the number of the reminder:'));
+    if(menuItem <= reminders.length && menuItem >= 1 && !!(menuItem % 1) == false ){
+        
+    }else{
+        console.log("The input is invalid! please choose one of the reminders from the list and press [Enter]");
+    }
+    
+};
+
+
+
+class Reminder {
+
+    public task : string;
+    public tag : string;
+    public isDone : boolean;
+    public listPrimaryKey: number = null;
+
+    setReminder():void{
+        do{
+            let tempTask = question('Enter a reminder here:');
+            let tempTag = question('Enter a tag here: ');
+            let YoN = question(`You entered tag: '${tempTag}' your task: '${tempTask}', is it correct? y/n: `)
+            if (YoN == "y") {
+                this.task = tempTask;
+                this.tag = tempTag;
+                this.isDone = false;
+                break;
+            }else if (YoN == "n") {
+            console.log("please renter the values!")
+            }
+        }while(true);
+    }
+
+    wordCheck(search:string):boolean {
+        if(this.task.search(search)!==-1 || this.tag.search(search)!==-1){
+            return true;
+        }else return false;
+    } 
+}
+
+
+
 question('Press [Enter] key to display the menu:');
+
 
 do {
     
@@ -104,16 +102,27 @@ do {
     let menuItem:string = question('Choose a [Number] followed by [Enter]: ');
     let num = parseFloat(menuItem);
     if(num <= 6 && num >= 1 && !!(num % 1) == false ){
-
         if (num == 1) {
-            reminder.showAllReminders();
+            showAll(reminders);
         } else if (num == 2) {
+            let keyWord = question("What are you searching for?");
+            reminders.forEach((reminder)=>{
+                let i = reminder.wordCheck(keyWord);
+                if(i) searchResult.push(reminder);
+            });
+            console.log(searchResult);
+            searchResult =[];
 
         } else if (num == 3) {
-            reminder.addReminders();
+            let data = new Reminder();
+            data.setReminder();
+            reminders.push(data);
+            console.log(reminders);
         } else if (num == 4) {
 
         } else if (num == 5) {
+
+            
 
         } else if (num == 6) {
             console.log("See you later!");
@@ -124,4 +133,3 @@ do {
         }
 
 }while(1);
-
