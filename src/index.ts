@@ -68,6 +68,27 @@ const modifyReminders = (reminders:Array<Reminder>) :void => {
     
 };
 
+const toggleStatus = (reminders:Array<Reminder>):void=>{
+
+    showAll(reminders);
+
+    let menuItem = parseFloat(question('Enter the number of the reminder:'));
+    if(menuItem <= reminders.length && menuItem >= 1 && !!(menuItem % 1) == false ){
+        reminders.forEach((reminder:Reminder)=>{
+            if(reminder.listPrimaryKey == menuItem){
+                console.log(reminder.isDone);
+                if (reminder.isDone){
+                    reminder.isDone = false;
+                }else reminder.isDone = true;
+                console.log(reminder.isDone);
+            }
+        });
+    }else{
+        console.log("The input is invalid! please choose one of the reminders from the list and press [Enter]");
+    }
+
+};
+
 
 
 class Reminder {
@@ -133,11 +154,7 @@ do {
 
         } else if (num == 5) {
 
-                // Should add a choosing system
-
-                //if (reminder.isDone){
-                //    reminder.isDone = false;
-                //}else reminder.isDone = true;
+            toggleStatus(reminders);
 
             console.log(reminders);
         } else if (num == 6) {
