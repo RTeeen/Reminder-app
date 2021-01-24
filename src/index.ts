@@ -1,7 +1,7 @@
 import { question } from "readline-sync";
 
 let reminders:Array<Reminder> = [];
-let searchResult:any =[];
+let searchResult:Array<any> =[];
 const menu:string = `
 ------------------------------
 |      Reminders menu:       |
@@ -32,7 +32,10 @@ const getTags = (reminders: Array<Reminder>) : string[] => {
 };
 
 const showAll = (reminders: Array<Reminder>): void =>{
-
+    if (reminders.length == 0) {
+        console.log("You have no reminders");
+        return;
+    }
     let tagList:string[] = getTags(reminders);
 
     tagList.forEach((tag:string)=>{
@@ -47,11 +50,12 @@ const showAll = (reminders: Array<Reminder>): void =>{
 
 }
 
-const modifyReminders = (reminders:Array<Reminder>) => {
+const modifyReminders = () => {
 
     showAll(reminders);
     let menuItem = parseFloat(question('Enter the number of the reminder:'));
-    if(menuItem <= reminders.length && menuItem >= 1 && !!(menuItem % 1) == false ){
+    if(menuItem <= reminders.length && menuItem
+         >= 1 && !!(menuItem % 1) == false ){
         
     }else{
         console.log("The input is invalid! please choose one of the reminders from the list and press [Enter]");
@@ -59,6 +63,19 @@ const modifyReminders = (reminders:Array<Reminder>) => {
     
 };
 
+const searchReminders = (reminders:Array<Reminder>) => {
+    if (reminders.length == 0) {
+        console.log("You have no reminders");
+        return;
+    }
+    let keyWord = question("What are you searching for?: ");
+    reminders.forEach((reminder) => {
+        let i = reminder.wordCheck(keyWord);
+        if (i) searchResult.push(reminder);
+    });
+    console.log(searchResult);
+    searchResult = [];
+}
 
 
 class Reminder {
@@ -105,14 +122,7 @@ do {
         if (num == 1) {
             showAll(reminders);
         } else if (num == 2) {
-            let keyWord = question("What are you searching for?");
-            reminders.forEach((reminder)=>{
-                let i = reminder.wordCheck(keyWord);
-                if(i) searchResult.push(reminder);
-            });
-            console.log(searchResult);
-            searchResult =[];
-
+            searchReminders(reminders);
         } else if (num == 3) {
             let data = new Reminder();
             data.setReminder();
