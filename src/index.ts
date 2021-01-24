@@ -47,15 +47,16 @@ const showAll = (reminders: Array<Reminder>): void =>{
 
 }
 
-const modifyReminders = (reminders:Array<Reminder>) => {
+const modifyReminders = (reminders:Array<Reminder>) :void => {
 
     showAll(reminders);
+
     let menuItem = parseFloat(question('Enter the number of the reminder:'));
     if(menuItem <= reminders.length && menuItem >= 1 && !!(menuItem % 1) == false ){
         reminders.forEach((reminder:Reminder)=>{
             if(reminder.listPrimaryKey == menuItem){
-                let newTag:string = question("Please enter the new tag:");
-                let newTask:string = question("Please enter the new task");
+                let newTag:string = question("Please enter the new tag and press [Enter]: ");
+                let newTask:string = question("Please enter the new task and press [Enter]: ");
                 reminder.tag = newTag;
                 reminder.task = newTask;
             }
@@ -126,6 +127,8 @@ do {
             reminders.push(data);
             console.log(reminders);
         } else if (num == 4) {
+
+            modifyReminders(reminders);
 
         } else if (num == 5) {
 
