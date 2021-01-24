@@ -1,4 +1,7 @@
 import { question } from "readline-sync";
+
+let reminders:Array<Reminder> = [];
+let searchResult:any =[];
 const menu:string = `
 ------------------------------
 |      Reminders menu:       |
@@ -11,11 +14,59 @@ const menu:string = `
 |  [6] Exit 👋                
 ------------------------------
 `;
+
+const getTags = (reminders: Array<Reminder>) : string[] => {
+
+    let cache: {[key: string]:boolean} = {};
+    let tagList: string[] = [];
+
+    for (let i= 0; i < reminders.length; i++) {
+       
+        let element:Reminder = reminders[i];
+        if(!cache[element.tag]){
+            cache[element.tag] = true;
+            tagList.push(element.tag);
+        }
+    }
+    return tagList;
+};
+
+const showAll = (reminders: Array<Reminder>): void =>{
+
+    let tagList:string[] = getTags(reminders);
+
+    tagList.forEach((tag:string)=>{
+        console.log(`[${tag}]`);
+        for (let i = 0; i < reminders.length; i++) {
+            if(tag == reminders[i].tag){
+                reminders[i].listPrimaryKey = (i+1);
+                console.log(`---${reminders[i].listPrimaryKey}.${reminders[i].task}`);
+            }
+        }
+    });
+
+}
+
+const modifyReminders = (reminders:Array<Reminder>) => {
+
+    showAll(reminders);
+    let menuItem = parseFloat(question('Enter the number of the reminder:'));
+    if(menuItem <= reminders.length && menuItem >= 1 && !!(menuItem % 1) == false ){
+        
+    }else{
+        console.log("The input is invalid! please choose one of the reminders from the list and press [Enter]");
+    }
+    
+};
+
+
+
 class Reminder {
 
     public task : string;
     public tag : string;
     public isDone : boolean;
+    public listPrimaryKey: number = null;
 
     setReminder():void{
         do{
@@ -40,10 +91,10 @@ class Reminder {
     } 
 }
 
+
+
 question('Press [Enter] key to display the menu:');
 
-let reminders = [];
-let searchResult:any =[];
 
 do {
     
@@ -52,7 +103,7 @@ do {
     let num = parseFloat(menuItem);
     if(num <= 6 && num >= 1 && !!(num % 1) == false ){
         if (num == 1) {
-            //reminder.showAllReminders();
+            showAll(reminders);
         } else if (num == 2) {
             let keyWord = question("What are you searching for?");
             reminders.forEach((reminder)=>{
