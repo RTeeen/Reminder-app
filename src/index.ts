@@ -56,9 +56,10 @@ const modifyReminders = (reminders:Array<Reminder>) :void => {
         reminders.forEach((reminder:Reminder)=>{
             if(reminder.listPrimaryKey == menuItem){
                 let newTag:string = question("Please enter the new tag and press [Enter]: ");
-                let newTask:string = question("Please enter the new task and press [Enter]: ");
+                let newTask:string = question("Please enter the new reminder and press [Enter]: ");
                 reminder.tag = newTag;
                 reminder.task = newTask;
+                console.log(`Reminder has been updated: [Updated Tag]: ${reminder.tag} [Updated Reminder]: ${reminder.task}`);
             }
         });
     }else{
