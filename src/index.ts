@@ -50,17 +50,48 @@ const showAll = (reminders: Array<Reminder>): void =>{
 
 }
 
-const modifyReminders = () => {
 
+const modifyReminders = (reminders:Array<Reminder>) :void => {
+  
     showAll(reminders);
+  
     let menuItem = parseFloat(question('Enter the number of the reminder:'));
-    if(menuItem <= reminders.length && menuItem
-         >= 1 && !!(menuItem % 1) == false ){
-        
+    if(menuItem <= reminders.length && menuItem >= 1 && !!(menuItem % 1) == false ){
+        reminders.forEach((reminder:Reminder)=>{
+            if(reminder.listPrimaryKey == menuItem){
+                let newTag:string = question("Please enter the new tag and press [Enter]: ");
+                let newTask:string = question("Please enter the new reminder and press [Enter]: ");
+                reminder.tag = newTag;
+                reminder.task = newTask;
+                console.log(`Reminder has been updated: [Updated Tag]: ${reminder.tag} [Updated Reminder]: ${reminder.task}`);
+            }
+        });
     }else{
         console.log("The input is invalid! please choose one of the reminders from the list and press [Enter]");
     }
     
+};
+
+
+const toggleStatus = (reminders:Array<Reminder>):void=>{
+
+    showAll(reminders);
+
+    let menuItem = parseFloat(question('Enter the number of the reminder:'));
+    if(menuItem <= reminders.length && menuItem >= 1 && !!(menuItem % 1) == false ){
+        reminders.forEach((reminder:Reminder)=>{
+            if(reminder.listPrimaryKey == menuItem){
+                console.log(reminder.isDone);
+                if (reminder.isDone){
+                    reminder.isDone = false;
+                }else reminder.isDone = true;
+                console.log(reminder.isDone);
+            }
+        });
+    }else{
+        console.log("The input is invalid! please choose one of the reminders from the list and press [Enter]");
+    }
+
 };
 
 const searchReminders = (reminders:Array<Reminder>) => {
@@ -76,6 +107,7 @@ const searchReminders = (reminders:Array<Reminder>) => {
     console.log(searchResult);
     searchResult = [];
 }
+
 
 
 class Reminder {
@@ -130,10 +162,13 @@ do {
             console.log(reminders);
         } else if (num == 4) {
 
+            modifyReminders(reminders);
+
         } else if (num == 5) {
 
-            
+            toggleStatus(reminders);
 
+            console.log(reminders);
         } else if (num == 6) {
             console.log("See you later!");
             break;
