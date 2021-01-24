@@ -52,7 +52,14 @@ const modifyReminders = (reminders:Array<Reminder>) => {
     showAll(reminders);
     let menuItem = parseFloat(question('Enter the number of the reminder:'));
     if(menuItem <= reminders.length && menuItem >= 1 && !!(menuItem % 1) == false ){
-        
+        reminders.forEach((reminder:Reminder)=>{
+            if(reminder.listPrimaryKey == menuItem){
+                let newTag:string = question("Please enter the new tag:");
+                let newTask:string = question("Please enter the new task");
+                reminder.tag = newTag;
+                reminder.task = newTask;
+            }
+        });
     }else{
         console.log("The input is invalid! please choose one of the reminders from the list and press [Enter]");
     }
