@@ -71,8 +71,13 @@ do {
 
         } else if (num == 5) {
 
-            
+                // Should add a choosing system
 
+                //if (reminder.isDone){
+                //    reminder.isDone = false;
+                //}else reminder.isDone = true;
+
+            console.log(reminders);
         } else if (num == 6) {
             console.log("See you later!");
             break;
