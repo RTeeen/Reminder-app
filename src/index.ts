@@ -31,6 +31,7 @@ const getTags = (reminders: Array<Reminder>) : string[] => {
     return tagList;
 };
 
+
 const showAll = (reminders: Array<Reminder>): void =>{
     if (reminders.length == 0) {
         console.log("You have no reminders");
