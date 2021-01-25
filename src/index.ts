@@ -30,7 +30,13 @@ const getTags = (reminders: Array<Reminder>) : string[] => {
     }
     return tagList;
 };
-
+const toggle = (reminder: Reminder, i: number): string => {
+    if (reminder.isDone == false) {
+        return `⭕️ ${reminders[i].task}`;
+    } else {
+        return `🔴 ${reminders[i].task}`;
+    }
+}
 
 const showAll = (reminders: Array<Reminder>): void =>{
     if (reminders.length == 0) {
@@ -40,16 +46,17 @@ const showAll = (reminders: Array<Reminder>): void =>{
     let tagList:string[] = getTags(reminders);
 
     tagList.forEach((tag:string)=>{
-        console.log(`[${tag}]`);
+        console.log(`👀  ${tag.toUpperCase()}`);
         for (let i = 0; i < reminders.length; i++) {
             if(tag == reminders[i].tag){
                 reminders[i].listPrimaryKey = (i+1);
-                console.log(`---${reminders[i].listPrimaryKey}.${reminders[i].task}`);
+                console.log(`${toggle(reminders[i], i)}`);
             }
         }
     });
 
 }
+
 
 
 const modifyReminders = (reminders:Array<Reminder>) :void => {
@@ -101,9 +108,15 @@ const searchReminders = (reminders:Array<Reminder>):void => {
         return;
     }
     let keyWord = question("What are you searching for?: ");
-    reminders.forEach((reminder) => {
+    reminders.forEach((reminder: Reminder) => {
         let i = reminder.wordCheck(keyWord);
         if (i) searchResult.push(reminder);
+    });
+    
+    searchResult.forEach((reminder: Reminder) => {
+        if (keyWord == reminder.tag) {
+
+        }
     });
     console.log(searchResult);
     searchResult = [];
@@ -117,6 +130,8 @@ class Reminder {
     public tag : string;
     public isDone : boolean;
     public listPrimaryKey: number = null;
+
+
 
     setReminder():void{
         do{
@@ -184,4 +199,6 @@ const runApplication = ():void => {
 
 question('Press [Enter] key to display the menu:');
 runApplication();
+
+
 
