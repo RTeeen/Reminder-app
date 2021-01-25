@@ -14,7 +14,7 @@ const menu:string = `
 |  [6] Exit 👋                
 ------------------------------
 `;
-
+// Logic for grabbing the tags into cache
 const getTags = (reminders: Array<Reminder>) : string[] => {
 
     let cache: {[key: string]:boolean} = {};
@@ -94,7 +94,7 @@ const toggleStatus = (reminders:Array<Reminder>):void=>{
 
 };
 
-const searchReminders = (reminders:Array<Reminder>) => {
+const searchReminders = (reminders:Array<Reminder>):void => {
     if (reminders.length == 0) {
         console.log("You have no reminders");
         return;
@@ -140,41 +140,47 @@ class Reminder {
     } 
 }
 
+const createReminder = ():void => {
+    let data = new Reminder();
+    data.setReminder();
+    reminders.push(data);
+    console.log(`Reminder with tag '${data.tag}' added to reminders`);
+}
 
+const runApplication = ():void => {
+    
+    do {
+    
+        console.log(menu);
+        let menuItem:string = question('Choose a [Number] followed by [Enter]: ');
+        let num = parseFloat(menuItem);
+        if(num <= 6 && num >= 1 && !!(num % 1) == false ){
+            if (num == 1) {
+                showAll(reminders);
+            } else if (num == 2) {
+                searchReminders(reminders);
+            } else if (num == 3) {
+                createReminder();
+            } else if (num == 4) {
+
+                modifyReminders(reminders);
+
+            } else if (num == 5) {
+
+                toggleStatus(reminders);
+
+                console.log(reminders);
+            } else if (num == 6) {
+                console.log("See you later!");
+                break;
+            }
+            }else{
+            console.log("The input is invalid! please choose one of the options [1-6] and press [Enter]");
+            }
+
+    }while(1);
+}
 
 question('Press [Enter] key to display the menu:');
+runApplication();
 
-
-do {
-    
-    console.log(menu);
-    let menuItem:string = question('Choose a [Number] followed by [Enter]: ');
-    let num = parseFloat(menuItem);
-    if(num <= 6 && num >= 1 && !!(num % 1) == false ){
-        if (num == 1) {
-            showAll(reminders);
-        } else if (num == 2) {
-            searchReminders(reminders);
-        } else if (num == 3) {
-            let data = new Reminder();
-            data.setReminder();
-            reminders.push(data);
-            console.log(reminders);
-        } else if (num == 4) {
-
-            modifyReminders(reminders);
-
-        } else if (num == 5) {
-
-            toggleStatus(reminders);
-
-            console.log(reminders);
-        } else if (num == 6) {
-            console.log("See you later!");
-            break;
-        }
-        }else{
-        console.log("The input is invalid! please choose one of the options [1-6] and press [Enter]");
-        }
-
-}while(1);
