@@ -1,5 +1,4 @@
 import { question } from "readline-sync";
-import { ModuleKind } from "typescript";
 
 export class ReminderList {
 

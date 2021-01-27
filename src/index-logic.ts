@@ -40,7 +40,6 @@ export const runApplication = ():void => {
                 reminderList.toggleDone();
                 break;
             case 6: 
-                reminderList.toggleDone();
                 break;
             default:
                 break;
