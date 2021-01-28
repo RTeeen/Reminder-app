@@ -1,5 +1,5 @@
 import { question } from "readline-sync";
-import { ModuleKind } from "typescript";
+
 
 export class ReminderList {
 
@@ -189,7 +189,7 @@ class Reminder {
         this._task = newTask;
     }
     toggleDone() {
-        if (this._completed = false) { this._completed = true; } 
+        if (this._completed == false) { this._completed = true; } 
         else { this._completed = false; }
     }
 }
