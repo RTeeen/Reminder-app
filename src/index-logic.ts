@@ -17,13 +17,16 @@ const menu:string = `
 
 export const runApplication = ():void => {
     
-    const runApp = question("Hit [Enter] key to see main menu: ", {
-        mask: "",
-        hideEchoBack: true,
-    });
+   
 
     const reminderList = new ReminderList();
     do {
+
+        const runApp = question("Hit [Enter] key to see main menu: ", {
+            mask: "",
+            hideEchoBack: true,
+        });
+
         console.log(menu);
         let menuItem: string = question('Choose a [Number] followed by [Enter]: ');
         var parse = parseFloat(menuItem);
