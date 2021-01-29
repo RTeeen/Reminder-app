@@ -1,5 +1,5 @@
 import { question } from "readline-sync";
-import { ReminderList } from "./reminder"
+import { ReminderList } from "./reminder";
 
 const menu:string = `
 ------------------------------
