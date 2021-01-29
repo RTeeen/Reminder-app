@@ -79,16 +79,16 @@ export class ReminderList {
                                 console.log("Please try again");
                                 break;
                             default:
-                                console.log("Please use format: y or n");
+                                console.log("invalid Input: please enter either y/n: ");
                                 break;
                         }
                     }while(yoN != "y")
                     break;
                 case 'n':
-                    console.log("Please try again");
+                    console.log("Please try typing it again: ");
                     break;
                 default:
-                    console.log("Please use format: y or n");
+                    console.log("invalid Input: please enter either y/n: ");
                     break; 
             }
         }while(YoN != "y")

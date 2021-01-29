@@ -17,7 +17,10 @@ const menu:string = `
 
 export const runApplication = ():void => {
     
-    question('Press [Enter] key to display the menu:');
+    const runApp = question("Hit [Enter] key to see main menu: ", {
+        mask: "",
+        hideEchoBack: true,
+    });
 
     const reminderList = new ReminderList();
     do {
@@ -44,11 +47,12 @@ export const runApplication = ():void => {
                 reminderList.toggleDone();
                 break;
             default:
+                console.log( "\nPlease enter a valid Input [1-6]!\n");
                 break;
         }
     } while(parse != 6)
 }
- 
+
 
 
 
