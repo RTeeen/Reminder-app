@@ -17,9 +17,10 @@ const menu:string = `
 
 export const runApplication = ():void => {
     
+    question('Press [Enter] key to display the menu:');
+
     const reminderList = new ReminderList();
     do {
-        question('Press [Enter] key to display the menu:');
         console.log(menu);
         let menuItem: string = question('Choose a [Number] followed by [Enter]: ');
         var parse = parseFloat(menuItem);

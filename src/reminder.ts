@@ -4,25 +4,45 @@ import { question } from "readline-sync";
 export class ReminderList {
 
     private _reminders : Reminder[] = [];
+
+
+    getUniqueTags = (reminders: Array<Reminder>) : string[] => {
+
+        let cache: {[key: string]:boolean} = {};
+        let tagList: string[] = [];
     
-    displayTag(reminder: Reminder): string {
-        return `👀  ${reminder.grabTag().toUpperCase()}`;
-    }
+        for (let i= 0; i < reminders.length; i++) {
+    
+            let element:Reminder = reminders[i];
+            if(!cache[element.grabTag()]){
+                cache[element.grabTag()] = true;
+                tagList.push(element.grabTag());
+            }
+        }
+        return tagList;
+    };
+
     displayTask(reminder: Reminder): string {
         if (reminder.checkDone() == false) {
-            return `⭕️ ${reminder.grabTask()}`;
+            return `    ⭕️ ${reminder.grabTask()}`;
         } else {
-            return `🔴 ${reminder.grabTask().strike()}`;
+            return `    🔴 ${reminder.grabTask().strike()}`;
         }
     }
     showAll(): void {
+        let uniqueTags = this.getUniqueTags(this._reminders);
         if (this._reminders.length == 0) {
             console.log("You have no reminders");
         } else {
-           this._reminders.forEach((reminder: Reminder) => {
-            console.log(`${this.displayTag(reminder)} \n`);
-            console.log(this.displayTask(reminder));
-        }); 
+            uniqueTags.forEach((tag: string) => {
+                console.log(`👀  ${tag.toUpperCase()} \n`);
+                this._reminders.forEach((reminder : Reminder)=>{
+                    if(reminder.grabTag()===tag){
+                        console.log(this.displayTask(reminder));
+                    }
+                });
+              console.log("\n");   
+            }); 
         }
     }
     searchReminders():void {
